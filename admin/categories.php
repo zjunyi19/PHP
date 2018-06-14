@@ -27,7 +27,7 @@
                               <input class = "form-control" type="text" name="cate_title">
                             </div>
                             <div class="form-group">
-                              <input class "btn btn-primary"type="submit" name="submit" value = "Add Category">
+                              <input class="btn btn-primary" type="submit" name="submit" value = "Add Category">
                             </div>
                           </form>
 
@@ -55,7 +55,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <?php findAllCategories();?>
+                              <?php find_all_categories();?>
                               <?php delete_categories();?>
                             </tbody>
                           </table>

@@ -2,7 +2,7 @@
 function insert_categories(){
   global $connection;
   if (isset($_POST['submit'])) {
-    $cate_title = $_POST['submit'];
+    $cate_title = $_POST['cate_title'];
     if($cate_title == " " || empty($cate_title)) {
       echo "This field should not be empty.";
     } else {
@@ -27,6 +27,7 @@ function delete_categories(){
     // refresh the page, otherwise we need to click delete twice
     header("Location:categories.php");
   }
+}
 
 function find_all_categories(){
   global $connection;
@@ -35,16 +36,16 @@ function find_all_categories(){
   while ($row = mysqli_fetch_assoc($result)) {
     $cate_title = $row['cate_title'];
     $cate_id = $row['cate_id'];
-    echo "<tr>"
+    echo "<tr>";
     echo "<td>{$cate_id}</td>";
     echo "<td>{$cate_title}</td>";
     echo "<td><a href='categories.php?delete={$cate_id}'>delete</a></td>";
     echo "<td><a href='categories.php?edit={$cate_id}'>Edit</a></td>";
-    echo "</tr>"
+    echo "</tr>";
   }
 }
 
-}
+
 
 
 

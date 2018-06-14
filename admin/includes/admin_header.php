@@ -1,7 +1,7 @@
 <!--so we can send buffer at the same time, save for later function like header("")-->
 <?php ob_start(); ?>
 <?php include "../includes/db.php" ?>
-<?php include "../admin/functions.php" ?>
+<?php include "functions.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
