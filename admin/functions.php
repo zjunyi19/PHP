@@ -45,6 +45,12 @@ function find_all_categories(){
   }
 }
 
+function confirmQuery($result){
+    global $connection;
+    if(!result) {
+        die("FAILED QUERY". mysqli_error($connection));
+    }
+}
 
 
 

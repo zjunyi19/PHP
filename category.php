@@ -13,16 +13,16 @@
             <div class="col-md-8">
                 
                 <?php
-                    if(isset($_GET['p_id'])) {
-                        $post_id = $_GET['p_id'];
+                    if(isset($_GET['c_id'])) {
+                        $cate_id = $_GET['c_id'];
                     }
-                    $get_post_query = "select * from posts where post_id = $post_id";
-                    $get_post_result = mysqli_query($connection, $get_post_query);
-                    while ($row = mysqli_fetch_assoc($get_post_result)) {
+                    $query = "select * from posts where post_category_id = $cate_id";
+                    $get_cate_result = mysqli_query($connection, $query);
+                    while ($row = mysqli_fetch_assoc($get_cate_result)) {
                         $post_title = $row['post_title'];
                         $post_author = $row['post_author'];
                         $post_image = $row['post_image'];
-                        $post_content = $row['post_content'];
+                        $post_content = substr($row['post_content'],0,100);
                         $post_date = $row['post_date'];
                 ?>
                    <h1 class="page-header">
