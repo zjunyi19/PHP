@@ -28,6 +28,7 @@
                          echo "<h1> NO RESULT</h1>";
                      } else {
                     while($row = mysqli_fetch_assoc($search_query)) {
+                        $post_id = $row['post_id'];
                         $post_title = $row['post_title'];
                         $post_author = $row['post_author'];
                         $post_date = $row['post_date'];
@@ -42,7 +43,7 @@
 
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="#"><?php echo $post_title ?></a>
+                    <a href="post.php?p_id=<?php echo $post_id?>"><?php echo $post_title ?></a>
                 </h2>
                 <p class="lead">
                     by <a href="index.php"><?php echo $post_author ?></a>

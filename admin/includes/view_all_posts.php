@@ -10,6 +10,8 @@
                                     <th>Tags</th>
                                     <th>Comments</th>
                                     <th>Date</th>
+                                    <th>Delete</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
                             
@@ -64,6 +66,7 @@
         $post_id = $_GET['delete'];
         $query = "DELETE FROM posts WHERE post_id = {$post_id}";
         $result = mysqli_query($connection, $query);
+        header("Location:posts.php");
         if (!result) {
             die("FAILED TO DELETE" . mysqli_error());
         }
