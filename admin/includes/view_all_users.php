@@ -22,7 +22,6 @@
                                     $user_lastname = $row['user_lastname'];
                                     $user_email = $row['user_email'];
                                     $user_status = $row['user_status'];
-                                    $user_image = $row['user_image'];
                                     $user_role = $row['user_role'];
                                     $user_password = $row['user_password'];
                                     echo "<tr>";
@@ -38,6 +37,7 @@
                                     echo "<td><a href= 'users.php?admin={$user_id}'>Admin</a></td>";
                                     echo "<td><a href= 'users.php?subscriber={$user_id}'>Subsriber</a></td>";
                                     echo "<td><a href= 'users.php?delete={$user_id}'>Delete</a></td>";
+                                    echo "<td><a href= 'users.php?source=edit_user&u_id={$user_id}'>Edit</a></td>";
                                     echo "</tr>";
                                 }
                                 

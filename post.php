@@ -25,7 +25,7 @@
                         $post_content = $row['post_content'];
                         $post_date = $row['post_date'];
                 ?>
-                   <h1 class="page-header">
+                <h1 class="page-header">
                     Page Heading
                     <small>Secondary Text</small>
                 </h1>
@@ -42,7 +42,6 @@
                 <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
                 <hr>
                 <p><?php echo $post_content ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                 <hr>                       
                 <?php }?>
@@ -55,14 +54,17 @@
                     $comment_author = $_POST['comment_author'];
                     $comment_content = $_POST['comment_content'];
                     $comment_email = $_POST['comment_email'];
-                    $comment_date = now();
-                    $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date)";
-                    $query .= "VALUES ({$comment_post_id}, {$comment_author}, {$comment_email}, {$comment_content}, "unapproved", {$comment_date})";
-                    $create_comment_result = mysqli_query($connection, $query);
-                    $query = "UPDATE posts SET post_comment_count = post_comment_count + 1";
-                    $query .= "WHERE post_id = {$post_id}";
-                    $update_comment_Count = mysqli_query($connection, $query);
-                    
+                    if(!empty($comment_author) && !empty($comment_content) && !empty($comment_email)) {
+                         $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date)";
+                        $query .= "VALUES ({$comment_post_id}, {$comment_author}, {$comment_email}, {$comment_content}, 'unapproved', now())";
+                        $create_comment = mysqli_query($connection, $query);
+                        $query = "UPDATE posts SET post_comment_count = post_comment_count + 1";
+                        $query .= "WHERE post_id = {$comment_post_id}";
+                        $update_comment_count = mysqli_query($connection, $query);
+                    } else {
+                        echo "<script>alert('FILED SHOULD NOT BE EMPTY')</script>";
+                    }
+                   
                 }                
                 ?>
 
@@ -123,6 +125,7 @@
             <!-- Blog Sidebar Widgets Column -->
             <?php   include "includes/sidebar.php"; ?> 
         </div>
+    </div>
         <!-- /.row -->
 
     <hr>

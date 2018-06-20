@@ -14,10 +14,13 @@
         <li><a href="../index.php">Home Site</a></li>
 
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Claudia Zhang <b class="caret"></b></a>
+           <?php
+            $user_name=$_SESSION['user_name'];
+            ?>
+            <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo "$user_name";?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a href="../admin/profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
@@ -27,7 +30,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="../includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -68,7 +71,7 @@
                 </ul>
             </li>
             <li class="">
-                <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Profile </a>
+                <a href="../admin/profile.php"><i class="fa fa-fw fa-file"></i> Profile </a>
             </li>
         </ul>
     </div>

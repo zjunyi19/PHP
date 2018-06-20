@@ -1,26 +1,23 @@
-<?php  
-    if(isset($_GET['u_id'])){
-        $user_id = $_GET['u_id'];
-        $query = "SELECT * FROM users WHERE user_id = $user_id";
-        $select_users_query = mysqli_query($connection,$query);  
-        while($row = mysqli_fetch_assoc($select_users_query)) {
+<?php include "includes/admin_header.php" ?>
+<?php
 
-          $user_id        = $row['user_id'];
-          $user_name       = $row['user_name'];
-          $user_password  = $row['user_password'];
-          $user_firstname = $row['user_firstname'];
-          $user_lastname  = $row['user_lastname'];
-          $user_email     = $row['user_email'];
-          $user_role      = $row['user_role'];
-          
-      }
-    }
-
+   if(isset($_SESSION['user_name'])) {
+    
+       $user_name = $_SESSION['user_name'];
+       $query = "SELECT * FROM users WHERE user_name = '{$user_name}' ";
+       $result = mysqli_query($connection, $query);
+       while($row = mysqli_fetch_array($result)) {
+           $user_id = $row['user_id'];
+           $user_password= $row['user_password'];
+           $user_firstname = $row['user_firstname'];
+           $user_lastname = $row['user_lastname'];
+           $user_email = $row['user_email'];
+           $user_role= $row['user_role'];
+       }
+   } 
 ?>
-  
 
-   
- <?php  // Post request to update user 
+  <?php  // Post request to update user 
    
 
    if(isset($_POST['update_user'])) {
@@ -30,7 +27,8 @@
             $user_name      = $_POST['user_name'];
             $user_email    = $_POST['user_email'];
             $user_password = $_POST['user_password'];
-        
+        }
+
             $query = "UPDATE users SET ";
             $query .="user_firstname  = '{$user_firstname}', ";
             $query .="user_lastname = '{$user_lastname}', ";
@@ -43,10 +41,26 @@
             $edit_user_query = mysqli_query($connection,$query);
        
             confirmQuery($edit_user_query);
-             echo "<p class='bg-success'>User Updated: "." "."<a href='users.php?u_id'>View Users</a></p>";
-   }
+
 ?>
 
+    <div id="wrapper">
+
+        <!-- Navigation -->
+<?php include "includes/admin_navigation.php" ?>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Welcome to admin
+                            <small><?php echo "$user_name";?></small>
+                        </h1>
+                        
     <form action="" method="post" enctype="multipart/form-data">    
         
       <div class="form-group">
@@ -93,5 +107,15 @@
       </div>
 
 
-</form>
-    
+</form> 
+                        
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+<?php include "includes/admin_footer.php" ?>

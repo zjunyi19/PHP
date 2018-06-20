@@ -18,6 +18,7 @@
       $add_user_result = mysqli_query($connection, $query);  
           
       confirmQuery($add_user_result);
+      echo "<p class='bg-success'>User Created: "." "."<a href='users.php'>View Users</a></p>";
    }
     
 ?> 

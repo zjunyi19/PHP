@@ -53,7 +53,7 @@
                                 }
                                 
                                 ?>
-                        </tbody>
+                            </tbody>
                         
                         </table>
                         
@@ -61,13 +61,14 @@
 <?php
     if(isset($_GET['unapprove'])) {
         $comment_id = $_GET['unapprove'];
-        $query = "UPDATE comments SET comment_status='unapproved' WHERE comment_id = $comment_id";
+        $query = "UPDATE comments SET comment_status='unapproved' WHERE comment_id = {$comment_id}";
         $result = mysqli_query($connection, $query);
-        header("Location:comments.php");v
+        header("Location:comments.php");
+        confirmQuery($result);
     }
     if(isset($_GET['approve'])) {
         $comment_id = $_GET['approve'];
-        $query = "UPDATE comments SET comment_status='approved' WHERE comment_id = $comment_id";
+        $query = "UPDATE comments SET comment_status='approved' WHERE comment_id = {$comment_id}";
         $result = mysqli_query($connection, $query);
         header("Location:comments.php");
         confirmQuery($result);

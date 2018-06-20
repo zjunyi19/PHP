@@ -1,7 +1,20 @@
 <!--so we can send buffer at the same time, save for later function like header("")-->
 <?php ob_start(); ?>
+<?php session_start(); ?>
 <?php include "../includes/db.php" ?>
 <?php include "functions.php" ?>
+<?php
+if(!isset($_SESSION['user_role'])) {
+    header("Location:../index.php");
+}
+if(isset($_SESSION['user_role'])) {
+    
+    if($_SESSION['user_role'] != 'admin') {
+        header("Location:../index.php");
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +43,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="js/scripts.js"></script>
 </head>
 
 <body>
