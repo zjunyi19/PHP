@@ -13,10 +13,11 @@
             <div class="col-md-8">
                 
                 <?php
-                    if(isset($_GET['p_id'])) {
-                        $post_id = $_GET['p_id'];
+                    if(isset($_GET['author'])) {
+                        $post_author = $_GET['author'];
+                        echo $post_author;
                     }
-                    $get_post_query = "select * from posts where post_id = $post_id";
+                    $get_post_query = "select * from posts where post_author = '{$post_author}'";
                     $get_post_result = mysqli_query($connection, $get_post_query);
                     while ($row = mysqli_fetch_assoc($get_post_result)) {
                         $post_title = $row['post_title'];
@@ -32,10 +33,10 @@
 
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="#"><?php echo $post_title; ?></a>
+                    <a href="posts.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
+                    by <?php echo $post_author; ?>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                 <hr>

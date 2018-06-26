@@ -1,11 +1,12 @@
 <?php
     if(isset($_POST['checkBoxArray'])) {
+       
         foreach($_POST['checkBoxArray'] as $postValueId) {
             $bulk_options = $_POST['bulk_options'];
             switch($bulk_options) {
                 case 'published':
                     $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$postValueId} ";
-                    $result = mysqli_query($connection,$query);       
+                    $result = mysqli_query($connection,$query);    
                     confirmQuery($result);
                 break;
                 case 'draft':
@@ -45,8 +46,6 @@
 
 
 ?>              
-                       
-                        
                      <form action="" method = "post">
                         <table class = "table table-bordered table-hover">
                            <div id="bulkkOptionsContainer" class="col-xs-4">
@@ -101,7 +100,7 @@
                                     $post_comment_count = $row['post_comment_count'];
                                     
                                     echo "<tr>";
-                                    echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]'></td>";
+                                    echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value={$post_id}> </td>";
                                     echo "<td>{$post_id}</td>";
                                     echo "<td>{$post_author}</td>";
                                     echo "<td>{$post_title}</td>";
@@ -122,7 +121,7 @@
                                     echo "<td>{$post_comment_count}</td>";
                                     echo "<td>{$post_date}</td>";
                                     echo "<td><a href='../post.php?p_id={$post_id}'>view post</a></td>";
-                                    echo "<td><a href= 'posts.php?delete={$post_id}'>delete</a></td>";
+                                    echo "<td><a onclick=\"javascript: return confirm('Are you sure you want to delete?')   ;\" href= 'posts.php?delete={$post_id}'>delete</a></td>";
                                     echo "<td><a href= 'posts.php?source=edit_post&p_id={$post_id}'>edit</a></td>";
                                     echo "</tr>";
                                 }

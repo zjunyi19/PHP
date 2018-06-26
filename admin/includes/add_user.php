@@ -4,12 +4,18 @@
    if(isset($_POST['create_user'])) {
    
         $user_firstname    = $_POST['user_firstname'];
-            $user_lastname     = $_POST['user_lastname'];
-            $user_role         = $_POST['user_role'];
-            $user_name          = $_POST['user_name'];
-            $user_email        = $_POST['user_email'];
-            $user_password     = $_POST['user_password'];
-    
+        $user_lastname     = $_POST['user_lastname'];
+        $user_role         = $_POST['user_role'];
+        $user_name          = $_POST['user_name'];
+        $user_email        = $_POST['user_email'];
+        $user_password     = $_POST['user_password'];
+        
+        $query = "SELECT user_randSalt from users";
+        $result = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($result);
+        $randSalt = $row['user_randSalt'];
+        $password = crypt($password, $randSalt);
+       
        
       $query = "INSERT INTO users(user_firstname, user_lastname, user_role,user_name,user_email,user_password) ";
                  

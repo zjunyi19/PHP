@@ -36,7 +36,7 @@
                                     
                                     echo "<td><a href= 'users.php?admin={$user_id}'>Admin</a></td>";
                                     echo "<td><a href= 'users.php?subscriber={$user_id}'>Subsriber</a></td>";
-                                    echo "<td><a href= 'users.php?delete={$user_id}'>Delete</a></td>";
+                                    echo "<td><a onclick=\"javascript: return confirm('Are you sure you want to delete?')   ;\" href= 'users.php?delete={$user_id}'>Delete</a></td>";
                                     echo "<td><a href= 'users.php?source=edit_user&u_id={$user_id}'>Edit</a></td>";
                                     echo "</tr>";
                                 }
@@ -63,7 +63,7 @@
         confirmQuery($result);
     }
     if(isset($_GET['delete'])) {
-        $comment_id = $_GET['delete'];
+        $user_id = $_GET['delete'];
         $query = "DELETE FROM users WHERE user_id = {$user_id}";
         $result = mysqli_query($connection, $query);
         header("Location:users.php");

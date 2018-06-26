@@ -13,15 +13,6 @@
             <div class="col-md-8">
                 
                 <?php
-                    if (isset($_GET['page'])) {
-                        
-                    }
-                    
-                    
-                    $query = "select * from posts WHERE post_status = 'published'";
-                    $result = mysqli_query($connection, $query);
-                    $num_posts = mysqli_num_rows($result);
-                    $count = ceil($num_posts / 5);
                     $query = "select * from posts WHERE post_status = 'published'";
                     $result = mysqli_query($connection, $query);
                     
@@ -75,14 +66,5 @@
         <!-- /.row -->
 
     <hr>
-    
-    <ul class="pager"> 
-       <?php
-        for($i = 1; $i <= $count; $i++) {
-            echo "<li><a href='#'>{$i}</a></li>"
-        }
-        ?>
-        
-    </ul>
     
 <?php   include "includes/footer.php"; ?>
