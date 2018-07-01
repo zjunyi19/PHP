@@ -11,28 +11,15 @@
             $username = mysqli_real_escape_string($connection, $username);
             $email = mysqli_real_escape_string($connection, $email);
             $password = mysqli_real_escape_string($connection, $password);
-        
-            $query = "SELECT user_randSalt FROM users";
-            $result = mysqli_query($connection, $query);
-            if (!$result) {
-                die("QUERY FAILED".mysqli_error());
-            }
-            $row = mysqli_fetch_assoc($result);
-            $randSalt = $row['user_randSalt'];
-        
-            $password = crypt($password, $randSalt);
+            $password = password_hash($password, PASSWORD_DEFAULT, array('cost' => 10));
             $query = "INSERT INTO users(user_name, user_email, user_password, user_role)";
             $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
             $result = mysqli_query($connection, $query);
             if (!$result) {
                 die("QUERY FAILED".mysqli_error());
             }
-            $message = "Your registration has been submitted";
-        } else {
-            $message = "Fields cannot be empty";
-        }     
-    } else {
-        $message = "111111";
+            
+        } 
     }
 ?>
  
@@ -54,7 +41,6 @@
                 <h1>Register</h1>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                        
-                        <h6 class="text-center"><?php echo $message;?></h6>
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username"

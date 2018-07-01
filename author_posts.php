@@ -15,7 +15,6 @@
                 <?php
                     if(isset($_GET['author'])) {
                         $post_author = $_GET['author'];
-                        echo $post_author;
                     }
                     $get_post_query = "select * from posts where post_author = '{$post_author}'";
                     $get_post_result = mysqli_query($connection, $get_post_query);
@@ -120,7 +119,8 @@
                         <h4 class="media-heading"><?php echo $comment_author;?>
                             <small><?php echo $comment_date;?></small>
                         </h4>
-                       <?php echo $comment_content;?>
+                        <p><?php echo $comment_content;?></p>
+                        <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div>
                 </div>
                 <?php }?>

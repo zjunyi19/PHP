@@ -9,13 +9,7 @@
         $user_name          = $_POST['user_name'];
         $user_email        = $_POST['user_email'];
         $user_password     = $_POST['user_password'];
-        
-        $query = "SELECT user_randSalt from users";
-        $result = mysqli_query($connection, $query);
-        $row = mysqli_fetch_assoc($result);
-        $randSalt = $row['user_randSalt'];
-        $password = crypt($password, $randSalt);
-       
+        $user_password = password_hash($user_password, PASSWORD_DEFAULT, array('cost' => 10));
        
       $query = "INSERT INTO users(user_firstname, user_lastname, user_role,user_name,user_email,user_password) ";
                  

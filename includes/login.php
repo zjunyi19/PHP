@@ -22,18 +22,18 @@
             $db_user_firstname = $row['user_firstname'];
             $db_user_role = $row['user_role'];
         }
-    }
-    if($username == $db_user_name && $password == $db_user_password) {
-        $_SESSION['user_name'] = $db_user_name;
-        $_SESSION['user_lastname'] = $db_user_lastname;
-        $_SESSION['user_firstname'] = $db_user_firstname;
-        $_SESSION['user_role'] = $db_user_role;
-        header("Location:../admin/index.php");
-    
-    } else {
-        header("Location:../index.php");
+        if(password_verify($password, $db_user_password)) {
+            $_SESSION['user_name'] = $db_user_name;
+            $_SESSION['user_lastname'] = $db_user_lastname;
+            $_SESSION['user_firstname'] = $db_user_firstname;
+            $_SESSION['user_role'] = $db_user_role;
+            header("Location:../admin/index.php");
+        } else {
+            header("Location:../index.php");
     }
 
+    }
+    
 
 
 

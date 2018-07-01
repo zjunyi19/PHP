@@ -81,10 +81,24 @@
         ?>
           </select>
      </div>
-     <div class="form-group">
+    <div class="form-group">
          <label for="title">Post Author</label>
-          <input value = "<?php echo $post_author; ?>" type="text" class="form-control" name="post_author">
-      </div>
+          <select name="post_author" id="">
+        <?php
+            echo "<option value = '$post_author'>{$post_author}</option>";
+            $query = "select * from users";
+            $user_result = mysqli_query($connection, $query);
+            confirmQuery($user_result);
+            while ($row = mysqli_fetch_assoc($user_result)) {
+                if($row['user_name'] != $post_author) {
+                    $user_name = $row['user_name'];
+                    echo "<option value = '$user_name'>{$user_name}</option>";
+                }        
+            }
+            
+        ?>
+        </select>
+    </div>
     <div class="form-group">
          <label for="post_status">Post Status</label>
              <select name="post_status" id="">

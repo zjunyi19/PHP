@@ -15,27 +15,28 @@
                 <?php
                     if(isset($_GET['p_id'])) {
                         $post_id = $_GET['p_id'];
-                    }
-                    $get_post_query = "select * from posts where post_id = $post_id";
-                    $get_post_result = mysqli_query($connection, $get_post_query);
-                    while ($row = mysqli_fetch_assoc($get_post_result)) {
-                        $post_title = $row['post_title'];
-                        $post_author = $row['post_author'];
-                        $post_image = $row['post_image'];
-                        $post_content = $row['post_content'];
-                        $post_date = $row['post_date'];
+                        $view_query = "UPDATE posts SET post_view_count = post_view_count + 1 where post_id = {$post_id}";
+                        $result = mysqli_query($connection, $view_query);
+                        $get_post_query = "select * from posts where post_id = $post_id";
+                        $get_post_result = mysqli_query($connection, $get_post_query);
+                        while ($row = mysqli_fetch_assoc($get_post_result)) {
+                            $post_title = $row['post_title'];
+                            $post_author = $row['post_author'];
+                            $post_image = $row['post_image'];
+                            $post_content = $row['post_content'];
+                            $post_date = $row['post_date'];
                 ?>
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
+                            <h1 class="page-header">
+                                Page Heading
+                            <small>Secondary Text</small>
+                            </h1>
 
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="#"><?php echo $post_title; ?></a>
+                    <?php echo $post_title; ?>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
+                    by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                 <hr>
@@ -44,7 +45,7 @@
                 <p><?php echo $post_content ?></p>
 
                 <hr>                       
-                <?php }?>
+                <?php }} else{ header("Location:index.php"); }?>
                             
                 <!-- Blog Comments -->
                 
@@ -61,12 +62,7 @@
                         if(!$create_comment) {
                             die('QUERY FAILED' . mysqli_error($connection));
                         }
-                        $query = "UPDATE posts SET post_comment_count = post_comment_count + 1";
-                        $query .= "WHERE post_id = {$comment_post_id}";
-                        $update_comment_count = mysqli_query($connection, $query);
-                        if(!$create_comment) {
-                            die('QUERY FAILED' . mysqli_error($update_comment_count));
-                        }
+                     
                     } else {
                         echo "<script>alert('FILED SHOULD NOT BE EMPTY')</script>";
                     }

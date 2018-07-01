@@ -77,6 +77,7 @@
                                     <th>Tags</th>
                                     <th>Comments</th>
                                     <th>Date</th>
+                                    <th>View Count</th>
                                     <th>View Post</th>
                                     <th>Delete</th>
                                     <th>Edit</th>
@@ -97,7 +98,7 @@
                                     $post_date = $row['post_date'];
                                     $post_tags = $row['post_tags'];
                                     $post_status = $row['post_status'];
-                                    $post_comment_count = $row['post_comment_count'];
+                                    $post_view_count = $row['post_view_count'];
                                     
                                     echo "<tr>";
                                     echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value={$post_id}> </td>";
@@ -118,8 +119,16 @@
                                     echo "<td><image width = '100' 
                                                 src='../images/$post_image' alt = 'image'></td>";
                                     echo "<td>{$post_tags}</td>";
-                                    echo "<td>{$post_comment_count}</td>";
+                                    
+                                    $query_count = "SELECT * FROM comments WHERE comment_post_id = $post_id";
+                                    $result_count = mysqli_query($connection, $query_count);
+                                    $row = mysqli_fetch_array($result_count);
+                                    $comments_id = $row['comment_id'];
+                                    $count_comments = mysqli_num_rows($result_count);
+                                    
+                                    echo "<td><a href='../admin/post_comments.php?p_id=$post_id'>{$count_comments}</a></td>";
                                     echo "<td>{$post_date}</td>";
+                                    echo "<td><a href='posts.php?reset={$post_id}'>{$post_view_count}</a></td>";
                                     echo "<td><a href='../post.php?p_id={$post_id}'>view post</a></td>";
                                     echo "<td><a onclick=\"javascript: return confirm('Are you sure you want to delete?')   ;\" href= 'posts.php?delete={$post_id}'>delete</a></td>";
                                     echo "<td><a href= 'posts.php?source=edit_post&p_id={$post_id}'>edit</a></td>";
@@ -136,15 +145,18 @@
         $post_id = $_GET['delete'];
         $query = "DELETE FROM posts WHERE post_id = {$post_id}";
         $result = mysqli_query($connection, $query);
+        confirmQuery($result);
         header("Location:posts.php");
-        if (!result) {
-            die("FAILED TO DELETE" . mysqli_error());
-        }
+    }
+    if(isset($_GET['reset'])) {
+        $post_id = $_GET['reset'];
+        $query = "UPDATE posts SET post_view_count = 0 WHERE post_id = {$post_id}";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        header("Location:posts.php");
     
     }
 
 ?>
-                        
-                        
-                    </form>
+               </form>
                         
