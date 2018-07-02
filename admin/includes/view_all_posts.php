@@ -2,7 +2,7 @@
     if(isset($_POST['checkBoxArray'])) {
        
         foreach($_POST['checkBoxArray'] as $postValueId) {
-            $bulk_options = $_POST['bulk_options'];
+            $bulk_options = escape($_POST['bulk_options']);
             switch($bulk_options) {
                 case 'published':
                     $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$postValueId} ";
@@ -23,7 +23,7 @@
                      $query = "SELECT * FROM posts WHERE post_id = '{$postValueId}' ";
                      $result = mysqli_query($connection, $query);
                     while ($row = mysqli_fetch_array($result)) {
-                         $post_title         = $row['post_title'];
+                        $post_title         = $row['post_title'];
                         $post_category_id   = $row['post_category_id'];
                         $post_date          = $row['post_date']; 
                         $post_author        = $row['post_author'];
@@ -142,14 +142,14 @@
                         
 <?php
     if(isset($_GET['delete'])) {
-        $post_id = $_GET['delete'];
+        $post_id = escape($_GET['delete']);
         $query = "DELETE FROM posts WHERE post_id = {$post_id}";
         $result = mysqli_query($connection, $query);
         confirmQuery($result);
         header("Location:posts.php");
     }
     if(isset($_GET['reset'])) {
-        $post_id = $_GET['reset'];
+        $post_id = escape($_GET['reset']);
         $query = "UPDATE posts SET post_view_count = 0 WHERE post_id = {$post_id}";
         $result = mysqli_query($connection, $query);
         confirmQuery($result);

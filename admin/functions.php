@@ -1,4 +1,12 @@
 <?php
+function escape($string) {
+    global $connection;
+    // strip_tags() used to remove HTML PHP XML tags
+    // trim() used to remove blank spaces
+    mysqli_real_escape_string($connection, trim($string));
+}
+
+
 function insert_categories(){
   global $connection;
   if (isset($_POST['submit'])) {

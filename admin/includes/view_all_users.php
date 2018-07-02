@@ -53,14 +53,14 @@
 
 <?php
     if(isset($_GET['admin'])) {
-        $user_id = $_GET['admin'];
+        $user_id = escape($_GET['admin']);
         $query = "UPDATE users SET user_role='admin' WHERE user_id = $user_id";
         $result = mysqli_query($connection, $query);
         confirmQuery($result);
         header("Location:users.php");
     }
     if(isset($_GET['subscriber'])) {
-        $user_id = $_GET['subscriber'];
+        $user_id = escape($_GET['subscriber']);
         $query = "UPDATE users SET user_role='subscriber' WHERE user_id = $user_id";
         $result = mysqli_query($connection, $query);
         confirmQuery($result);
@@ -68,7 +68,7 @@
     }
     if(isset($_GET['delete'])) {
         if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
-            $user_id = mysqli_real_escape_string($connection,$_GET['delete']);
+            $user_id = escape($_GET['delete']);
             $query = "DELETE FROM users WHERE user_id = {$user_id}";
             $result = mysqli_query($connection, $query);
             confirmQuery($result);
